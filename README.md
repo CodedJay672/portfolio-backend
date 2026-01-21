@@ -17,6 +17,7 @@ This is an Express.js project template with TypeScript configuration.
 ## Development
 
 Install dependencies:
+
 ```bash
 npm install
 # or
@@ -24,6 +25,7 @@ pnpm install
 ```
 
 Start development server:
+
 ```bash
 npm run dev
 ```
@@ -33,11 +35,13 @@ The server will start on `http://localhost:8080` with hot reload enabled.
 ## Build
 
 Compile TypeScript to JavaScript:
+
 ```bash
 npm run build
 ```
 
 Run the compiled application:
+
 ```bash
 npm run serve
 ```
@@ -63,24 +67,16 @@ src/
     └── security.ts     # CORS and rate limiting configuration
 ```
 
-## Environment Variables
-
-Create a `.env` file in the root directory:
-
-```env
-PORT=8080
-NODE_ENV=development
-DOMAIN=http://localhost:3000
-```
-
 ## Docker
 
 Build the Docker image:
+
 ```bash
 docker build -t my-app .
 ```
 
 Run the container:
+
 ```bash
 docker run -p 8080:8080 my-app
 ```
