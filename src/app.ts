@@ -1,20 +1,21 @@
-import { config } from "dotenv";
+import compression from "compression";
 import express from "express";
 import helmet from "helmet";
-import compression from "compression";
+import cookieParser from "cookie-parser";
 
-import { apiLimiter, corsRules } from "./configs/security";
-import { morganMiddleware, winstonLogger } from "./configs/logging";
 import exampleRouter from "./api/routes/router-example";
-
-config();
+import { morganMiddleware, winstonLogger } from "./configs/logging";
+import { apiLimiter, corsRules } from "./configs/security";
+import { configVariables } from "./lib/config";
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = configVariables.port;
 
 app.use(helmet());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(compression());
+app.use(cookieParser());
+app.use(compression({ threshold: 1024 }));
 app.use(corsRules);
 app.use(apiLimiter);
 app.use(morganMiddleware);
@@ -23,7 +24,7 @@ app.use(morganMiddleware);
 app.use("/api/v1/example", exampleRouter);
 
 app.listen(port, () => {
-  winstonLogger.info(
-    `Server running on port ${port} in ${process.env.NODE_ENV} mode`
-  );
+    winstonLogger.info(
+        `Server running on port ${port} in ${process.env.NODE_ENV} mode`,
+    );
 });
